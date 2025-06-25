@@ -1,6 +1,7 @@
 package com.edutech.proveedor.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,10 +9,7 @@ import org.springframework.stereotype.Service;
 import com.edutech.proveedor.model.Proveedor;
 import com.edutech.proveedor.repository.ProveedorRepositoryJPA;
 
-import jakarta.transaction.Transactional;
-
 @Service
-@Transactional
 public class ProveedorService {
 
     @Autowired
@@ -25,12 +23,7 @@ public class ProveedorService {
         return proveedorRepository.save(proveedor);
     }
 
-    public Proveedor getProveedor(int id) throws Exception {
-        return proveedorRepository.findById(id)
-            .orElseThrow(() -> new Exception("Proveedor no encontrado con id " + id));
-    }
-
-    public void deleteProveedor(int id) {
-        proveedorRepository.deleteById(id);
+    public Optional<Proveedor> buscarProveedorPorId(Integer id) {
+        return proveedorRepository.findById(id);
     }
 }
